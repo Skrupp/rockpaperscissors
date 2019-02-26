@@ -1,9 +1,27 @@
 <script>
-const inputOptions = ['rock', 'paper', 'scissors'];
+const inputOptions = ["Rock", "Paper", "Scissors"];
 
     function computerPlay(){
-        let computerSelection = inputOptions[Math.floor(Math.random() * inputOptions.length)];
-        return computerSelection;
+        return (inputOptions[Math.floor(Math.random() * 3)]);
+    }
+ 
+    function playRound(playerSelection){
+        computerSelection = computerPlay();
+        if ((computerSelection == "Rock" && playerSelection == "Paper") || (computerSelection == "Paper" && playerSelection == "Scissors") || (computerSelection == "Scissors" && playerSelection == "Rock")){
+        return (playerSelection + " beats " + computerSelection + ". You win!");
         }
-    
+        else if(computerSelection == playerSelection){
+        return (playerSelection + " matches " + computerSelection + ". It's a tie!");
+        }
+        else if ((computerSelection == "Paper" && playerSelection == "Rock") || (computerSelection == "Scissors" && playerSelection == "Paper") || (computerSelection == "Rock" && playerSelection == "Scissors")){
+        return (computerSelection + " beats " + playerSelection + ". You lose!");
+        }
+        else {
+        return ("You made a spelling error.")
+        }
+    }
+
+    console.log(playRound());
+
+
 </script>
