@@ -1,12 +1,21 @@
 <script>
 const inputOptions = ["Rock", "Paper", "Scissors"];
 
+let playerScore = 0
+let cpuScore = 0
+
     function computerPlay(){
         return (inputOptions[Math.floor(Math.random() * 3)]);
     }
- 
-    function playRound(playerSelection){
+
+    function capitalize(string ="default"){
+        return (string.charAt(0).toUpperCase() + string.slice(1).toLowerCase());
+    }
+    
+    function playRound(playerSelection){     
         computerSelection = computerPlay();
+        playerSelection = capitalize(playerSelection);
+
         if ((computerSelection == "Rock" && playerSelection == "Paper") || (computerSelection == "Paper" && playerSelection == "Scissors") || (computerSelection == "Scissors" && playerSelection == "Rock")){
         return (playerSelection + " beats " + computerSelection + ". You win!");
         }
@@ -17,7 +26,7 @@ const inputOptions = ["Rock", "Paper", "Scissors"];
         return (computerSelection + " beats " + playerSelection + ". You lose!");
         }
         else {
-        return ("You made a spelling error.")
+        return ("Please pick between Rock, Paper and Scissors.")
         }
     }
 
