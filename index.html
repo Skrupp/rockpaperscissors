@@ -1,9 +1,10 @@
 <script>
 const inputOptions = ["Rock", "Paper", "Scissors"];
+var playerScore = 0;
+var computerScore = 0;
 
-let playerScore = 0
-let cpuScore = 0
-
+console.log("Type game() to start the game!");
+ 
     function computerPlay(){
         return (inputOptions[Math.floor(Math.random() * 3)]);
     }
@@ -12,17 +13,16 @@ let cpuScore = 0
         return (string.charAt(0).toUpperCase() + string.slice(1).toLowerCase());
     }
     
-    function playRound(playerSelection){     
-        computerSelection = computerPlay();
-        playerSelection = capitalize(playerSelection);
-
+    function playRound(playerSelection, computerSelection){    
         if ((computerSelection == "Rock" && playerSelection == "Paper") || (computerSelection == "Paper" && playerSelection == "Scissors") || (computerSelection == "Scissors" && playerSelection == "Rock")){
+        ++playerScore;
         return (playerSelection + " beats " + computerSelection + ". You win!");
         }
         else if(computerSelection == playerSelection){
         return (playerSelection + " matches " + computerSelection + ". It's a tie!");
         }
         else if ((computerSelection == "Paper" && playerSelection == "Rock") || (computerSelection == "Scissors" && playerSelection == "Paper") || (computerSelection == "Rock" && playerSelection == "Scissors")){
+        ++computerScore;
         return (computerSelection + " beats " + playerSelection + ". You lose!");
         }
         else {
@@ -30,7 +30,22 @@ let cpuScore = 0
         }
     }
 
-    console.log(playRound());
-
-
+    function game(){
+        while (playerScore < 3 && computerScore < 3){
+            let playerSelection = window.prompt("Rock, Paper or Scissors?")
+            computerSelection = computerPlay();
+            playerSelection = capitalize(playerSelection);
+            console.log(playRound(playerSelection, computerSelection));
+            if (playerScore > 2){
+                console.log("The score is " + playerScore + " vs " + computerScore + " You win!");
+                playerScore = 0, computerScore = 0;
+                return("Do you want to play again? Just type game()");
+            }
+            else if (computerScore > 2){
+                console.log("The score is " + playerScore + " vs " + computerScore + " You lose!")
+                playerScore = 0, computerScore = 0;
+                return("Do you want to play again? Just type game()");
+            }
+        }
+    }
 </script>
