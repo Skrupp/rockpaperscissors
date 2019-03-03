@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="eng">
 <head>
-        <meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Rock, Paper, Scissors</title>
 </head>
 
@@ -10,9 +10,10 @@
 </body>
 <script>
 const inputOptions = ["Rock", "Paper", "Scissors"];
-var playerScore = 0, computerScore = 0;
+let playerScore = 0, computerScore = 0;
+let computerSelection, playerSelection, gameSelection;
 
-console.log("Type playgame() to start the game!");
+console.log("Type playGame() to start the game!");
 
 function computerPlay(){
     return (inputOptions[Math.floor(Math.random() * 3)]);
@@ -22,17 +23,13 @@ function capitalize(string ="default"){
     return (string.charAt(0).toUpperCase() + string.slice(1).toLowerCase());
     }
     
-function playRound(playerSelection, computerSelection){
-    if ((computerSelection === "Rock" && playerSelection === "Paper") ||
-        (computerSelection === "Paper" && playerSelection === "Scissors") ||
-        (computerSelection === "Scissors" && playerSelection === "Rock")){
+function playRound(playerSelection, computerSelection, gameSelection){
+    if (gameSelection === -4 || gameSelection === 1 || gameSelection === 4){
             ++playerScore;
             return (playerSelection + " beats " + computerSelection + ". You win!");
-            } else if(computerSelection === playerSelection){
+            } else if(gameSelection === 0){
                 return (playerSelection + " matches " + computerSelection + ". It's a tie!");
-                } else if ((computerSelection === "Paper" && playerSelection === "Rock") ||
-                           (computerSelection === "Scissors" && playerSelection === "Paper") ||
-                           (computerSelection === "Rock" && playerSelection === "Scissors")){
+                } else if (gameSelection === -1 || gameSelection === -3 || gameSelection === 3){
                                ++computerScore;
                                return (computerSelection + " beats " + playerSelection + ". You lose!");
                                } else {
@@ -40,20 +37,21 @@ function playRound(playerSelection, computerSelection){
                                    }
 }
 
-function playgame(){
+function playGame(){
     while (playerScore < 3 && computerScore < 3){
-        let playerSelection = window.prompt("Rock, Paper or Scissors?");
+        playerSelection = window.prompt("Rock, Paper or Scissors?");
         computerSelection = computerPlay();
         playerSelection = capitalize(playerSelection);
-        console.log(playRound(playerSelection, computerSelection));
+        gameSelection = (playerSelection.length - computerSelection.length);
+        console.log(playRound(playerSelection, computerSelection, gameSelection));
         if (playerScore > 2){
             console.log("The score is " + playerScore + " vs " + computerScore + " You win!");
             playerScore = 0, computerScore = 0;
-            return("Do you want to play again? Just type game()");
+            return("Do you want to play again? Just type playGame()");
             } else if (computerScore > 2){
                 console.log("The score is " + playerScore + " vs " + computerScore + " You lose!");
                 playerScore = 0, computerScore = 0;
-                return("Do you want to play again? Just type game()");
+                return("Do you want to play again? Just type playGame()");
             }
     }
 }
